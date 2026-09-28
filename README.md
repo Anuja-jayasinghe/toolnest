@@ -1,4 +1,4 @@
-# Personal scripts
+# Toolnest
 
 A small personal toolbox for reusable scripts. Each script lives in its own
 directory with its implementation and documentation together. `just` provides
@@ -32,12 +32,16 @@ Other installation methods are documented in the [official Just manual](https://
 ## Layout
 
 ```text
-scripts/
+toolnest/
 ├── anthropic_key_test/
 │   ├── anthropic_key_test.py
 │   └── README.md
 ├── ranking_calculator/
 │   ├── ranking_calculator.py
+│   └── README.md
+├── mouse_auto_active/
+│   ├── mouse_active.py
+│   ├── requirements.txt
 │   └── README.md
 ├── justfile
 └── README.md
@@ -51,6 +55,7 @@ From this directory:
 just
 just anthropic-key-test
 just ranking-calculator
+just mouse-auto-active
 just check
 ```
 
@@ -59,6 +64,7 @@ You can also run the files directly with Python:
 ```bash
 python3 anthropic_key_test/anthropic_key_test.py
 python3 ranking_calculator/ranking_calculator.py
+python3 mouse_auto_active/mouse_active.py
 ```
 
 The Anthropic checker prompts for a key and performs one minimal live Messages
@@ -67,3 +73,6 @@ request. It uses no third-party packages. See
 
 See [`ranking_calculator/README.md`](ranking_calculator/README.md) for the
 ranking calculator's input format and ranking behavior.
+
+See [`mouse_auto_active/README.md`](mouse_auto_active/README.md) for its
+dependency installation and usage instructions.
