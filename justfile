@@ -1,20 +1,26 @@
 python := if os_family() == "windows" { "python" } else { "python3" }
+venv_python := if os_family() == "windows" { ".venv/Scripts/python.exe" } else { ".venv/bin/python" }
 
 default:
     @just --list
 
-# Check an Anthropic API key with a minimal live request.
-anthropic-key-test:
-    {{python}} anthropic_key_test/anthropic_key_test.py
-
-# Calculate standard competition rankings from pasted marks.
-ranking-calculator:
-    {{python}} ranking_calculator/ranking_calculator.py
+# Create the local virtual environment and install every tool's dependencies.
+install:
+    {{ python }} -m venv .venv
+    {{ venv_python }} -c 'from pathlib import Path; import subprocess, sys; files = sorted(Path(".").glob("*/requirements.txt")); print(f"Installing from {len(files)} requirements file(s)...", flush=True); [subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", str(path)]) for path in files]'
 
 # Move the mouse periodically to keep the computer active.
-mouse-auto-active:
-    {{python}} mouse_auto_active/mouse_active.py
+mouse-auto-active: install
+    {{ venv_python }} mouse_auto_active/mouse_active.py
+
+# Calculate standard competition rankings from pasted marks.
+ranking-calculator: install
+    {{ venv_python }} ranking_calculator/ranking_calculator.py
+
+# Check an Anthropic API key with a minimal live request.
+anthropic-key-test: install
+    {{ venv_python }} anthropic_key_test/anthropic_key_test.py
 
 # Compile all Python scripts without running them.
 check:
-    {{python}} -c 'from pathlib import Path; [compile(p.read_text(encoding="utf-8"), str(p), "exec") for p in Path(".").glob("*/**/*.py")]; print("Python syntax: ok")'
+    {{ python }} -c 'from pathlib import Path; files = [p for p in Path(".").glob("*/**/*.py") if not any(part.startswith(".") for part in p.parts)]; [compile(p.read_text(encoding="utf-8"), str(p), "exec") for p in files]; print(f"Python syntax: ok ({len(files)} files)")'

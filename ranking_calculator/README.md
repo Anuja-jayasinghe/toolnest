@@ -3,6 +3,8 @@
 An interactive Python script that calculates standard competition rankings
 from a pasted list of marks.
 
+It uses only Python's standard library and has no third-party dependencies.
+
 ## Run it
 
 From the repository root:

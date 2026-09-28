@@ -8,11 +8,12 @@ computer active during periods of inactivity.
 From the Toolnest repository root:
 
 ```bash
-python3 -m pip install -r mouse_auto_active/requirements.txt
+just install
 ```
 
-On Windows, use `python` instead of `python3` if that is the command installed
-on your system.
+This creates a repository-local `.venv`, discovers all `requirements.txt`
+files in Toolnest, and installs every script's dependencies, including
+`pyautogui`. The virtual environment is excluded from Git.
 
 ## Run
 
@@ -22,11 +23,16 @@ Using `just` from the repository root:
 just mouse-auto-active
 ```
 
+This command also runs the installation recipe automatically, so calling it
+directly is enough on a fresh checkout.
+
 Or run it directly:
 
 ```bash
-python3 mouse_auto_active/mouse_active.py
+.venv/bin/python mouse_auto_active/mouse_active.py
 ```
+
+On Windows, the equivalent interpreter is `.venv\Scripts\python.exe`.
 
 Stop it at any time with `Ctrl-C`.
 

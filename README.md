@@ -33,15 +33,15 @@ Other installation methods are documented in the [official Just manual](https://
 
 ```text
 toolnest/
-├── anthropic_key_test/
-│   ├── anthropic_key_test.py
+├── mouse_auto_active/
+│   ├── mouse_active.py
+│   ├── requirements.txt
 │   └── README.md
 ├── ranking_calculator/
 │   ├── ranking_calculator.py
 │   └── README.md
-├── mouse_auto_active/
-│   ├── mouse_active.py
-│   ├── requirements.txt
+├── anthropic_key_test/
+│   ├── anthropic_key_test.py
 │   └── README.md
 ├── justfile
 └── README.md
@@ -53,26 +53,37 @@ From this directory:
 
 ```bash
 just
-just anthropic-key-test
-just ranking-calculator
+just install
 just mouse-auto-active
+just ranking-calculator
+just anthropic-key-test
 just check
 ```
+
+`just install` creates an isolated `.venv`, discovers every
+`*/requirements.txt` file, and installs the dependencies for all scripts. New
+scripts are automatically included when they keep their requirements file in
+their own directory. Currently, Mouse Auto Active requires `pyautogui`; the
+other two scripts use only Python's standard library.
+
+Every script recipe runs the installation recipe automatically before starting,
+so any `just <script-name>` command works as the first command on a new
+checkout.
 
 You can also run the files directly with Python:
 
 ```bash
-python3 anthropic_key_test/anthropic_key_test.py
-python3 ranking_calculator/ranking_calculator.py
-python3 mouse_auto_active/mouse_active.py
+.venv/bin/python mouse_auto_active/mouse_active.py
+.venv/bin/python ranking_calculator/ranking_calculator.py
+.venv/bin/python anthropic_key_test/anthropic_key_test.py
 ```
 
-The Anthropic checker prompts for a key and performs one minimal live Messages
-request. It uses no third-party packages. See
-[`anthropic_key_test/README.md`](anthropic_key_test/README.md) for details.
+See [`mouse_auto_active/README.md`](mouse_auto_active/README.md) for its
+dependency installation and usage instructions.
 
 See [`ranking_calculator/README.md`](ranking_calculator/README.md) for the
 ranking calculator's input format and ranking behavior.
 
-See [`mouse_auto_active/README.md`](mouse_auto_active/README.md) for its
-dependency installation and usage instructions.
+The Anthropic checker prompts for a key and performs one minimal live Messages
+request. It uses no third-party packages. See
+[`anthropic_key_test/README.md`](anthropic_key_test/README.md) for details.
