@@ -1,3 +1,6 @@
+# Windows has no `sh` by default, so recipes run in PowerShell 7 there.
+set windows-shell := ["pwsh", "-NoLogo", "-NoProfile", "-Command"]
+
 python := if os_family() == "windows" { "python" } else { "python3" }
 venv_python := if os_family() == "windows" { ".venv/Scripts/python.exe" } else { ".venv/bin/python" }
 
@@ -20,6 +23,18 @@ ranking-calculator: install
 # Check an Anthropic API key with a minimal live request.
 anthropic-key-test: install
     {{ venv_python }} anthropic_key_test/anthropic_key_test.py
+
+# Set the desktop wallpaper (Windows). Args: -Name file.jpg | -Random | -Path image.
+wallpaper *args:
+    pwsh -NoProfile -File set_wallpaper/set_wallpaper.ps1 {{ args }}
+
+# Apply per-user Windows preferences: dark mode, file extensions, hidden files (Windows). Arg: -Light.
+windows-preferences *args:
+    pwsh -NoProfile -File windows_preferences/windows_preferences.ps1 {{ args }}
+
+# Install and configure WSL (Windows). Args: -Install from an elevated terminal first.
+wsl-setup *args:
+    pwsh -NoProfile -File wsl_setup/wsl_setup.ps1 {{ args }}
 
 # Compile all Python scripts without running them.
 check:

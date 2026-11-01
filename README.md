@@ -43,6 +43,9 @@ toolnest/
 ├── anthropic_key_test/
 │   ├── anthropic_key_test.py
 │   └── README.md
+├── set_wallpaper/          (Windows, PowerShell)
+├── windows_preferences/    (Windows, PowerShell)
+├── wsl_setup/              (Windows, PowerShell)
 ├── justfile
 └── README.md
 ```
@@ -57,8 +60,19 @@ just install
 just mouse-auto-active
 just ranking-calculator
 just anthropic-key-test
+just wallpaper -Random
+just windows-preferences
+just wsl-setup
 just check
 ```
+
+The three Windows recipes run PowerShell scripts through `pwsh` (PowerShell 7).
+On Windows every recipe uses `pwsh` as its shell, since `sh` is not installed by
+default. The Python scripts need Python 3 installed.
+
+This repo sits next to the [dotfiles](https://github.com/Anuja-jayasinghe/dotfiles)
+repo in the projects folder (`C:\gitprojects`); the dotfiles bootstrap script
+clones both. The wallpaper and WSL scripts read the dotfiles repo from there.
 
 `just install` creates an isolated `.venv`, discovers every
 `*/requirements.txt` file, and installs the dependencies for all scripts. New
