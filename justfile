@@ -32,6 +32,10 @@ wallpaper *args:
 windows-preferences *args:
     pwsh -NoProfile -File windows_preferences/windows_preferences.ps1 {{ args }}
 
+# Connect or disconnect a paired Bluetooth device from a picker (Windows). Args: -Name part -Disconnect.
+bluetooth *args:
+    pwsh -NoProfile -File bluetooth_connect/bluetooth_connect.ps1 {{ args }}
+
 # Install and configure WSL (Windows). Args: -Install from an elevated terminal first.
 wsl-setup *args:
     pwsh -NoProfile -File wsl_setup/wsl_setup.ps1 {{ args }}
