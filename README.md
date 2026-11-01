@@ -43,6 +43,7 @@ toolnest/
 ├── anthropic_key_test/
 │   ├── anthropic_key_test.py
 │   └── README.md
+├── bluetooth_connect/      (Windows, PowerShell)
 ├── set_wallpaper/          (Windows, PowerShell)
 ├── windows_preferences/    (Windows, PowerShell)
 ├── wsl_setup/              (Windows, PowerShell)
@@ -60,13 +61,14 @@ just install
 just mouse-auto-active
 just ranking-calculator
 just anthropic-key-test
+just bluetooth
 just wallpaper -Random
 just windows-preferences
 just wsl-setup
 just check
 ```
 
-The three Windows recipes run PowerShell scripts through `pwsh` (PowerShell 7).
+The four Windows recipes run PowerShell scripts through `pwsh` (PowerShell 7).
 On Windows every recipe uses `pwsh` as its shell, since `sh` is not installed by
 default. The Python scripts need Python 3 installed.
 
