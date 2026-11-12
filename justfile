@@ -40,6 +40,10 @@ bluetooth *args:
 wsl-setup *args:
     pwsh -NoProfile -File wsl_setup/wsl_setup.ps1 {{ args }}
 
+# Set up remote access: Remote Desktop and SSH over Tailscale, plus RustDesk (Windows). Args: -AddKey key -Status.
+remote-access *args:
+    pwsh -NoProfile -File remote_access/remote_access.ps1 {{ args }}
+
 # Compile all Python scripts without running them.
 check:
     {{ python }} -c 'from pathlib import Path; files = [p for p in Path(".").glob("*/**/*.py") if not any(part.startswith(".") for part in p.parts)]; [compile(p.read_text(encoding="utf-8"), str(p), "exec") for p in files]; print(f"Python syntax: ok ({len(files)} files)")'

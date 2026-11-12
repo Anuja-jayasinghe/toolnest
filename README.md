@@ -47,6 +47,7 @@ toolnest/
 ├── set_wallpaper/          (Windows, PowerShell)
 ├── windows_preferences/    (Windows, PowerShell)
 ├── wsl_setup/              (Windows, PowerShell)
+├── remote_access/          (Windows, PowerShell)
 ├── justfile
 └── README.md
 ```
@@ -65,10 +66,19 @@ just bluetooth
 just wallpaper -Random
 just windows-preferences
 just wsl-setup
+just remote-access
 just check
 ```
 
-The four Windows recipes run PowerShell scripts through `pwsh` (PowerShell 7).
+`just remote-access` makes this PC reachable from your other devices through
+Tailscale: Remote Desktop and an SSH server (key sign-in only), neither open to
+anything outside Tailscale. It also installs RustDesk, which shares the real
+screen (with a privacy mode toggle) and is reachable by RustDesk ID or
+directly over Tailscale; set its permanent password and 2FA in its settings.
+Add an SSH key with `just remote-access -AddKey "ssh-ed25519 ..."` and check
+the setup with `just remote-access -Status`.
+
+The five Windows recipes run PowerShell scripts through `pwsh` (PowerShell 7).
 On Windows every recipe uses `pwsh` as its shell, since `sh` is not installed by
 default. The Python scripts need Python 3 installed.
 
